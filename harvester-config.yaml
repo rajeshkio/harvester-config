@@ -1,0 +1,11 @@
+install:
+  harvester:
+    storage_class:
+      replica_count: 1
+  vip: 192.168.90.150
+  vip_mode: static
+os:
+  after_install_chroot_commands:
+    - curl -fsSL https://tailscale.com/install.sh | sh
+  ssh_authorized_keys:
+    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIINH6/EGN6YmF3lOlXzBG/oPAo0dGpzlnky3RMQAMv5c rajeshkumar@Rajeshs-MacBook-Pro.local
