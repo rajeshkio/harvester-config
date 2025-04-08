@@ -9,6 +9,8 @@ os:
     - "rm -f /etc/resolv.conf && echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf"
     - "mkdir /usr/local/bin"
     - "curl -fsSL https://pkgs.tailscale.com/stable/tailscale_1.82.0_amd64.tgz | tar xz && cd tailscale_1.82.0_amd64 && sudo cp ./systemd/tailscaled.service /etc/systemd/system/ &&  sudo cp ./tailscale /usr/local/bin/ && sudo cp ./systemd/tailscaled.defaults /etc/default/tailscaled && sudo  cp ./tailscaled /usr/sbin/ && sudo systemctl enable tailscaled"
+
+# zypper fails because there is no repository by default. May be we need to add this to subscription first. TODO
     - "sudo zypper update -y"
     - "sudo zypper install -y htop ncdu telnet"
     - "rm -f /etc/resolv.conf && ln -s /var/run/netconfig/resolv.conf /etc/resolv.conf"
