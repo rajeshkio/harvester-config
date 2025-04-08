@@ -6,6 +6,20 @@ install:
   vip_mode: static
 os:
   after_install_chroot_commands:
-    - curl -fsSL https://tailscale.com/install.sh | sh
+    - "rm -f /etc/resolv.conf && echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf"
+    - "mkdir /usr/local/bin"
+    - "curl -fsSL https://pkgs.tailscale.com/stable/tailscale_1.82.0_amd64.tgz | tar xz && cd tailscale_1.82.0_amd64 && sudo cp ./systemd/tailscaled.service /etc/systemd/system/ &&  sudo cp ./tailscale /usr/local/bin/ && sudo cp ./systemd/tailscaled.defaults /etc/default/tailscaled && sudo  cp ./tailscaled /usr/sbin/ && sudo systemctl enable tailscaled"
+    - "sudo zypper update -y"
+    - "sudo zypper install -y htop ncdu telnet"
+    - "rm -f /etc/resolv.conf && ln -s /var/run/netconfig/resolv.conf /etc/resolv.conf"
+
+  after-upgrade-chroot_commands:
+    - "rm -f /etc/resolv.conf && echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf"
+    - "mkdir /usr/local/bin"
+    - "curl -fsSL https://pkgs.tailscale.com/stable/tailscale_1.82.0_amd64.tgz | tar xz && cd tailscale_1.82.0_amd64 && sudo cp ./systemd/tailscaled.service /etc/systemd/system/ &&  sudo cp ./tailscale /usr/local/bin/ && sudo cp ./systemd/tailscaled.defaults /etc/default/tailscaled && sudo  cp ./tailscaled /usr/sbin/ && sudo systemctl enable tailscaled"
+    - "sudo zypper -y update"
+    - "sudo zypper -y install htop ncdu telnet"
+    - "rm -f /etc/resolv.conf && ln -s /var/run/netconfig/resolv.conf /etc/resolv.conf"
+
   ssh_authorized_keys:
     - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIINH6/EGN6YmF3lOlXzBG/oPAo0dGpzlnky3RMQAMv5c rajeshkumar@Rajeshs-MacBook-Pro.local
